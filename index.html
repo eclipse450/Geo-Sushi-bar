@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geo Sushi Bar — Handmade Nigiri, Rolls &amp; Sashimi</title>
+<meta name="description" content="Geo Sushi Bar — Japanese sushi, sashimi and rolls. Order on WhatsApp or visit us today.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink: #15151a;
+    --ink-2: #1d1d24;
+    --paper: #f2ede0;
+    --paper-dim: #cfc9ba;
+    --vermilion: #c1392f;
+    --vermilion-dim: #8f2a23;
+    --gold: #c9a15a;
+    --jade: #4d6f5c;
+    --line: rgba(242,237,224,0.14);
+    --shadow: 0 20px 50px rgba(0,0,0,0.45);
+    --display: "Shippori Mincho", serif;
+    --body: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  h1,h2,h3{ font-family: var(--display); font-weight: 600; margin:0; }
+
+  .eyebrow{
+    font-family: var(--body);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display:flex;
+    align-items:center;
+    gap: 0.6rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height:1px;
+    background: var(--gold);
+    display:inline-block;
+  }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position: fixed; top:0; left:0; right:0; z-index: 100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.1rem 5vw;
+    background: linear-gradient(to bottom, rgba(21,21,26,0.92), rgba(21,21,26,0));
+    transition: background 0.3s ease;
+  }
+  header.site.scrolled{ background: rgba(21,21,26,0.92); backdrop-filter: blur(6px); border-bottom:1px solid var(--line); }
+  .brand{ display:flex; align-items:center; gap:0.7rem; font-family: var(--display); font-size:1.15rem; letter-spacing:0.02em; }
+  .brand .mark{
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 0.85rem; color: var(--gold);
+  }
+  nav.links{ display:flex; gap:2.1rem; font-size:0.85rem; letter-spacing:0.04em; }
+  nav.links a{ text-decoration:none; opacity:0.85; position:relative; padding-bottom:4px;}
+  nav.links a:hover{ opacity:1; }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background: var(--vermilion); transition: width 0.25s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+  .nav-cta{
+    border:1px solid var(--gold); color: var(--gold);
+    padding: 0.5rem 1.1rem; border-radius: 999px; font-size:0.78rem;
+    text-decoration:none; letter-spacing:0.06em; white-space:nowrap;
+  }
+  .menu-toggle{ display:none; background:none; border:none; color:var(--paper); font-size:1.5rem; cursor:pointer; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height: 100vh;
+    display:flex; align-items:center;
+    background-image:
+      linear-gradient(180deg, rgba(15,15,18,0.55) 0%, rgba(15,15,18,0.35) 40%, rgba(15,15,18,0.85) 100%),
+      url("images/hero.jpg");
+    background-size: cover; background-position: center;
+    padding: 0 5vw;
+  }
+  .hero-inner{ max-width: 720px; padding-top: 4rem; }
+  .hero-inner .eyebrow{ color:var(--gold); }
+  .hero h1{
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.05;
+    margin: 1.1rem 0 0.6rem;
+    color: var(--paper);
+  }
+  .hero h1 span{ color: var(--vermilion); }
+  .hero .sub-jp{
+    font-family: var(--display); font-size:1rem; letter-spacing:0.5em;
+    color: var(--paper-dim); margin-bottom: 1.4rem;
+  }
+  .hero p.desc{
+    max-width: 480px; color: var(--paper-dim); font-size:1.02rem; margin-bottom: 2.2rem;
+  }
+  .hero-ctas{ display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    padding: 0.9rem 1.7rem; border-radius: 999px;
+    text-decoration:none; font-size:0.85rem; letter-spacing:0.05em;
+    font-weight:500; transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{ background: var(--vermilion); color: var(--paper); box-shadow: 0 10px 30px rgba(193,57,47,0.35);}
+  .btn-primary:hover{ box-shadow: 0 14px 34px rgba(193,57,47,0.5); }
+  .btn-ghost{ border:1px solid var(--line); color: var(--paper); }
+  .btn-ghost:hover{ border-color: var(--gold); color: var(--gold); }
+
+  .hero-seal{
+    position:absolute; right:6vw; bottom:3rem;
+    width: 92px; height:92px; border-radius:50%;
+    border:1px solid rgba(242,237,224,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--display); color: var(--paper); font-size:0.75rem;
+    letter-spacing:0.15em; text-align:center; line-height:1.3;
+    background: rgba(21,21,26,0.35);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 6.5rem 5vw; position:relative; }
+  .section-head{ max-width: 640px; margin-bottom: 3.2rem; }
+  .section-head h2{ font-size: clamp(2rem, 3.4vw, 2.9rem); margin-top:0.6rem; color: var(--paper); }
+  .section-head p{ color: var(--paper-dim); margin-top:0.9rem; max-width: 540px; }
+
+  /* ---------- ABOUT ---------- */
+  #about{ background: var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .about-grid{
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items:center;
+  }
+  .about-figure{
+    position:relative; aspect-ratio: 4/5; border-radius: 6px; overflow:hidden;
+    box-shadow: var(--shadow);
+  }
+  .about-figure img{ width:100%; height:100%; object-fit:cover; }
+  .about-figure .tag{
+    position:absolute; left:1.1rem; bottom:1.1rem;
+    background: rgba(21,21,26,0.75); border:1px solid var(--gold);
+    color: var(--gold); font-size:0.72rem; letter-spacing:0.14em;
+    padding: 0.4rem 0.8rem; border-radius: 4px;
+  }
+  .about-copy p{ color: var(--paper-dim); margin: 1rem 0; }
+  .about-stats{ display:flex; gap:2.4rem; margin-top:2.2rem; }
+  .about-stats div{ border-left: 1px solid var(--line); padding-left: 1rem; }
+  .about-stats b{ display:block; font-family: var(--display); font-size:1.6rem; color: var(--gold); }
+  .about-stats span{ font-size:0.78rem; color: var(--paper-dim); letter-spacing:0.04em; }
+
+  /* ---------- MENU ---------- */
+  #menu{ background: var(--ink); }
+  .menu-nav{
+    position: sticky; top: 74px; z-index: 40;
+    display:flex; gap:0.6rem; flex-wrap:wrap;
+    padding: 0.9rem 0 1.8rem; margin-bottom: 1rem;
+    background: var(--ink);
+  }
+  .menu-nav button{
+    font-family: var(--body); background: transparent; color: var(--paper-dim);
+    border:1px solid var(--line); padding:0.55rem 1.15rem; border-radius:999px;
+    font-size:0.82rem; letter-spacing:0.03em; cursor:pointer; transition: all 0.2s ease;
+    white-space:nowrap;
+  }
+  .menu-nav button:hover{ color: var(--paper); border-color: var(--gold); }
+  .menu-nav button.active{ background: var(--vermilion); color: var(--paper); border-color: var(--vermilion); }
+
+  .category{ margin-top: 3.4rem; display:flex; gap: 2.4rem; }
+  .category .placard{
+    flex: 0 0 auto; width: 44px;
+    display:flex; flex-direction:column; align-items:center; gap:0.8rem;
+  }
+  .placard .jp{
+    writing-mode: vertical-rl; text-orientation: upright;
+    font-family: var(--display); font-size:1.3rem; letter-spacing:0.1em;
+    color: var(--gold);
+  }
+  .placard .rule{ width:1px; flex:1; background: var(--line); min-height:40px; }
+  .category-body{ flex:1; min-width:0; }
+  .category-title{ display:flex; align-items:baseline; gap:1rem; margin-bottom:0.4rem; flex-wrap:wrap; }
+  .category-title h3{ font-size: 1.7rem; color: var(--paper); }
+  .category-title .romaji{ font-size:0.78rem; letter-spacing:0.12em; color: var(--paper-dim); text-transform:uppercase; }
+  .category-note{ color: var(--paper-dim); font-size:0.9rem; margin-bottom:1.6rem; }
+
+  .item-grid{
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.3rem;
+  }
+  .item-card{
+    background: var(--ink-2); border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .item-card:hover{ transform: translateY(-4px); border-color: var(--gold); }
+  .item-photo{ aspect-ratio: 4/3; background: #2a2a30; position:relative; overflow:hidden; }
+  .item-photo img{ width:100%; height:100%; object-fit:cover; }
+  .item-photo .fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: var(--display); color: var(--paper-dim); font-size:0.85rem; text-align:center; padding:0.6rem;
+    background: linear-gradient(135deg, #23232a, #1a1a1f);
+  }
+  .item-info{ padding: 0.9rem 1rem 1.05rem; display:flex; justify-content:space-between; align-items:flex-start; gap:0.6rem; }
+  .item-name{ font-size:0.96rem; color: var(--paper); font-weight:500; }
+  .item-price{ font-family: var(--display); color: var(--vermilion); font-size:0.98rem; white-space:nowrap; }
+
+  /* ---------- CONTACT ---------- */
+  #contact{ background: var(--ink-2); border-top:1px solid var(--line); }
+  .contact-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+  .contact-card{
+    border:1px solid var(--line); border-radius:10px; padding:2rem;
+    background: var(--ink);
+  }
+  .contact-card h3{ font-size:1.3rem; margin-bottom:1.4rem; color:var(--paper); }
+  .contact-row{ display:flex; align-items:center; gap:0.9rem; padding: 0.85rem 0; border-bottom:1px solid var(--line); }
+  .contact-row:last-child{ border-bottom:none; }
+  .contact-row .ico{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--gold); color:var(--gold);
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto; font-size:1rem;
+  }
+  .contact-row a{ text-decoration:none; color: var(--paper); font-size:0.96rem; }
+  .contact-row a:hover{ color: var(--gold); }
+  .contact-row .label{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--paper-dim); display:block; margin-bottom:0.15rem; }
+
+  .hours-list{ list-style:none; padding:0; margin:0; }
+  .hours-list li{ display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid var(--line); font-size:0.92rem; color: var(--paper-dim); }
+  .hours-list li:last-child{ border-bottom:none; }
+  .hours-list li span:last-child{ color: var(--paper); }
+
+  footer{
+    text-align:center; padding: 2.4rem 5vw; color: var(--paper-dim); font-size:0.8rem;
+    border-top:1px solid var(--line); background: var(--ink);
+  }
+  footer .jp{ font-family: var(--display); color: var(--gold); letter-spacing:0.3em; display:block; margin-bottom:0.6rem; font-size:0.9rem; }
+
+  /* floating whatsapp */
+  .float-wa{
+    position:fixed; bottom: 1.6rem; right:1.6rem; z-index:200;
+    width:56px; height:56px; border-radius:50%; background: var(--jade);
+    display:flex; align-items:center; justify-content:center; box-shadow: var(--shadow);
+    text-decoration:none; color: var(--paper); font-size:1.5rem;
+  }
+
+  @media (max-width: 900px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .contact-grid{ grid-template-columns: 1fr; }
+    .category{ gap:1.2rem; }
+  }
+  @media (max-width: 700px){
+    nav.links, .nav-cta{ display:none; }
+    .menu-toggle{ display:block; }
+    .placard{ width: 30px; }
+    .placard .jp{ font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site" id="siteHeader">
+  <div class="brand"><span class="mark">源</span> Geo Sushi Bar</div>
+  <nav class="links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="nav-cta" href="https://wa.me/591812949" target="_blank" rel="noopener">Order on WhatsApp</a>
+  <button class="menu-toggle" aria-label="Menu">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="eyebrow">Edomae-style sushi bar</div>
+    <div class="sub-jp">源 寿司 バー</div>
+    <h1>Sushi cut clean, <span>served honest.</span></h1>
+    <p class="desc">Fish sourced daily, rice seasoned by hand, and a menu built on the classics — from nigiri to sashimi to the odd roll that breaks the rules. Welcome to Geo Sushi Bar.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#menu">View the menu</a>
+      <a class="btn btn-ghost" href="https://wa.me/591812949" target="_blank" rel="noopener">Order via WhatsApp</a>
+    </div>
+  </div>
+  <div class="hero-seal">EST.<br>GEO<br>SUSHI</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-figure">
+      <img src="images/hero.jpg" alt="Inside Geo Sushi Bar" onerror="this.parentElement.style.background='linear-gradient(135deg,#23232a,#1a1a1f)'; this.remove();">
+      <div class="tag">Itamae's counter</div>
+    </div>
+    <div class="about-copy">
+      <div class="eyebrow">About us</div>
+      <h2>Small counter. Big respect for the fish.</h2>
+      <p>Geo Sushi Bar started with one idea: sushi doesn't need to be complicated to be excellent. Every piece of nigiri is pressed to order, every roll is rolled when you ask for it, and every bowl of rice is seasoned the same way it was the day we opened.</p>
+      <p>We keep the menu wide enough to explore — from simple maguro to a chef's-special chirashi bowl — but never so wide that anything sits around waiting to be fresh. If it's on the counter, it was cut today.</p>
+      <div class="about-stats">
+        <div><b>60+</b><span>dishes on the menu</span></div>
+        <div><b>Daily</b><span>fish delivery</span></div>
+        <div><b>GEL</b><span>honest pricing</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-head">
+    <div class="eyebrow">The menu</div>
+    <h2>Eight sections. One counter.</h2>
+    <p>Everything is priced in GEL. Tap a section to jump straight to it, or scroll through the whole board.</p>
+  </div>
+
+  <div class="menu-nav" id="menuNav"></div>
+  <div id="menuContent"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-head">
+    <div class="eyebrow">Visit or order</div>
+    <h2>Come by, call, or send a message.</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>Get in touch</h3>
+      <div class="contact-row">
+        <div class="ico">@</div>
+        <div>
+          <span class="label">Email</span>
+          <a href="mailto:Geosushibar@gmail.com">Geosushibar@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ico">☎</div>
+        <div>
+          <span class="label">WhatsApp</span>
+          <a href="https://wa.me/591812949" target="_blank" rel="noopener">+591 812 949</a>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ico">➤</div>
+        <div>
+          <span class="label">Order</span>
+          <a href="https://wa.me/591812949" target="_blank" rel="noopener">Message us to place a takeaway order</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>Opening hours</h3>
+      <ul class="hours-list">
+        <li><span>Monday – Thursday</span><span>12:00 – 22:30</span></li>
+        <li><span>Friday – Saturday</span><span>12:00 – 23:30</span></li>
+        <li><span>Sunday</span><span>13:00 – 22:00</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="jp">ありがとう ございます</span>
+  © <span id="year"></span> Geo Sushi Bar. All rights reserved.
+</footer>
+
+<a class="float-wa" href="https://wa.me/591812949" target="_blank" rel="noopener" aria-label="Order on WhatsApp">☏</a>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ---------------- MENU DATA ---------------- */
+const MENU = [
+  { key:"nigiri", jp:"握り", romaji:"Nigiri (2 pcs)", note:"Two hand-pressed pieces per order.", items:[
+    ["Maguro (Tuna)",8,"maguro.jpg"],
+    ["Sake (Salmon)",7,"salmon.jpg"],
+    ["Hamachi (Yellowtail)",9,"hamachi.jpg"],
+    ["Ebi (Shrimp)",6,"ebi.jpg"],
+    ["Unagi (Freshwater Eel)",10,"unagi.jpg"],
+    ["Tako (Octopus)",8,"tako.jpg"],
+    ["Hotate (Scallop)",11,"hotate.jpg"],
+    ["Ikura (Salmon Roe)",12,"ikura.jpg"],
+    ["Tamago (Egg Omelet)",5,"tamago.jpg"],
+    ["Inari (Sweet Tofu Pocket)",5,"inari.jpg"],
+  ]},
+  { key:"rolls", jp:"巻き寿司", romaji:"Rolls", note:"Classic and signature maki, cut into eight.", items:[
+    ["California Roll",12,"california.jpg"],
+    ["Spicy Tuna Roll",14,"spicy_tuna.jpg"],
+    ["Salmon Avocado Roll",13,"salmon_avocado.jpg"],
+    ["Philadelphia Roll",15,"philadelphia.jpg"],
+    ["Dragon Roll",19,"dragon.jpg"],
+    ["Rainbow Roll",20,"rainbow.jpg"],
+    ["Spider Roll",18,"spider.jpg"],
+    ["Tempura Shrimp Roll",16,"tempura_shrimp.jpg"],
+    ["Crunch Roll",15,"crunch.jpg"],
+    ["Volcano Roll",21,"volcano.jpg"],
+  ]},
+  { key:"handrolls", jp:"手巻き", romaji:"Hand Rolls", note:"Cone-style temaki, wrapped to order.", items:[
+    ["Spicy Tuna Hand Roll",9,"spicy_tuna_hand.jpg"],
+    ["Salmon Hand Roll",8,"salmon_hand.jpg"],
+    ["California Hand Roll",8,"california_hand.jpg"],
+    ["Eel Avocado Hand Roll",10,"eel_hand.jpg"],
+    ["Shrimp Tempura Hand Roll",10,"shrimp_tempura_hand.jpg"],
+  ]},
+  { key:"sashimi", jp:"刺身", romaji:"Sashimi", note:"Sliced fish, no rice — just the cut.", items:[
+    ["Salmon Sashimi (6 pcs)",18,"salmon_sashimi.jpg"],
+    ["Tuna Sashimi (6 pcs)",20,"tuna_sashimi.jpg"],
+    ["Yellowtail Sashimi (6 pcs)",22,"yellowtail_sashimi.jpg"],
+    ["Mixed Sashimi",26,"mixed_sashimi.jpg"],
+  ]},
+  { key:"specials", jp:"特選", romaji:"Chef's Specials", note:"Off the regular board — ask your server what's freshest.", items:[
+    ["Tuna Tataki",22,"tuna_tataki.jpg"],
+    ["Salmon Carpaccio",20,"salmon_carpaccio.jpg"],
+    ["Yellowtail Jalapeño",24,"yellowtail_jalapeno.jpg"],
+    ["Chirashi Bowl",28,"chirashi.jpg"],
+    ["Sushi Moriwase (12 pcs)",34,"moriwase.jpg"],
+  ]},
+  { key:"appetizers", jp:"前菜", romaji:"Appetizers", note:"Small plates to start.", items:[
+    ["Edamame",6,"edamame.jpg"],
+    ["Spicy Edamame",7,"spicy_edamame.jpg"],
+    ["Gyoza (6 pcs)",10,"gyoza.jpg"],
+    ["Veggie Tempura",9,"tempura.jpg"],
+    ["Shrimp Tempura",15,"shrimp_tempura.jpg"],
+    ["Miso Soup",4,"miso.jpg"],
+    ["Seaweed Salad",7,"seaweed_salad.jpg"],
+    ["Cucumber Salad",6,"cucumber_salad.jpg"],
+    ["Agedashi Tofu",9,"agedashi_tofu.jpg"],
+    ["Takoyaki (6 pcs)",13,"takoyaki.jpg"],
+  ]},
+  { key:"bowls", jp:"丼", romaji:"Rice & Bowls", note:"Heartier plates over steamed rice.", items:[
+    ["Chicken Teriyaki Bowl",18,"teriyaki_bowl.jpg"],
+    ["Beef Teriyaki Bowl",22,"beef_teriyaki.jpg"],
+    ["Salmon Poke Bowl",24,"salmon_poke.jpg"],
+    ["Tuna Poke Bowl",25,"tuna_poke.jpg"],
+    ["Steamed Rice",4,"rice.jpg"],
+  ]},
+  { key:"drinks", jp:"飲み物", romaji:"Drinks", note:"To go with everything above.", items:[
+    ["Green Tea",3,"green_tea.jpg"],
+    ["Japanese Iced Tea",5,"iced_tea.jpg"],
+    ["Matcha Latte",8,"matcha_latte.jpg"],
+    ["Ramune Soda",7,"ramune.jpg"],
+    ["Sparkling Water",3,"sparkling_water.jpg"],
+    ["Still Water",2,"water.jpg"],
+    ["Coca-Cola",4,"coke.jpg"],
+    ["Asahi Beer",8,"asahi.jpg"],
+    ["Sapporo Beer",8,"sapporo.jpg"],
+    ["Hot Sake",10,"hot_sake.jpg"],
+  ]},
+];
+
+const navEl = document.getElementById('menuNav');
+const contentEl = document.getElementById('menuContent');
+
+MENU.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.textContent = cat.romaji;
+  btn.dataset.target = cat.key;
+  btn.addEventListener('click', () => {
+    document.getElementById('cat-' + cat.key).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  navEl.appendChild(btn);
+
+  const section = document.createElement('div');
+  section.className = 'category';
+  section.id = 'cat-' + cat.key;
+
+  const itemsHTML = cat.items.map(([name, price, img]) => `
+    <div class="item-card">
+      <div class="item-photo">
+        <img src="images/${img}" alt="${name}" loading="lazy"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="fallback" style="display:none;">${name}</div>
+      </div>
+      <div class="item-info">
+        <span class="item-name">${name}</span>
+        <span class="item-price">${price} GEL</span>
+      </div>
+    </div>
+  `).join('');
+
+  section.innerHTML = `
+    <div class="placard">
+      <span class="jp">${cat.jp}</span>
+      <span class="rule"></span>
+    </div>
+    <div class="category-body">
+      <div class="category-title">
+        <h3>${cat.romaji}</h3>
+        <span class="romaji">${cat.items.length} items</span>
+      </div>
+      <p class="category-note">${cat.note}</p>
+      <div class="item-grid">${itemsHTML}</div>
+    </div>
+  `;
+  contentEl.appendChild(section);
+});
+
+/* highlight active category pill on scroll */
+const navButtons = Array.from(navEl.children);
+const catSections = MENU.map(c => document.getElementById('cat-' + c.key));
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = catSections.indexOf(entry.target);
+      navButtons.forEach(b => b.classList.remove('active'));
+      if (navButtons[idx]) navButtons[idx].classList.add('active');
+    }
+  });
+}, { rootMargin: "-40% 0px -55% 0px" });
+catSections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
